@@ -22,3 +22,34 @@ Any serial adapter will work.  Any caching or latency timing need to be kept to 
 
 ![alt text](https://github.com/jzhvymetal/WiresharkSerialAdapter/blob/main/00A_Wireshark%20Serial%20Adapter%20RS485%20DISABLE%20LATENCY%20TIMER.png)
 
+## Software Settings
+
+![alt text](https://github.com/jzhvymetal/WiresharkSerialAdapter/blob/main/99_Wireshark%20Serial%20Adapter-Software%20Settings.png)
+
+<ins>Interframe Timing Detection</ins>
+- **Event:** Use the serial adapters event to detect when data has been received.
+- **Polling**:  Uses timer based polling to detect when data has been received.
+
+<ins>Interframe Timebase</ins>
+- **Multipler**: 1x Modbus Character:  Uses the Modbus time based on specification multipled by the Interframe Multipler setting for detection of end of frame.
+- **Multipler**: 1x Character:  Uses time per serial character(calulated by baud rate, Byte, Parity, Stop bits) multipled by the Interframe Multipler setting for detection of end of frame.
+- **Delay Only**:  Uses on the delay specified in the Interframe Delay(us) for detection of end of frame.
+
+<ins>Interframe Multipler</ins>
+- Used as time multipler when selecting one of the Interframe Timebase using multipler.
+
+<ins>Interframe Delay(us)</ins>
+- Use as delay on detection of end of frame.  This time is added to any additional time to detect the end of frame on all Timebase selected.
+
+<ins>Interframe Correction</ins>
+- **Modbus CRC**:  This is used in conjuction with detecting the end of frames.  This will check the frame for the correct Modbus CRC.  If the frame has the correct CRC it will present the frame to Wireshark.   If the CRC is not correct it will analyze the frame until the point that a correct CRC frame is detected.  This help if the Interframe Timing Detection is not precise to detect the Interframe period.
+- **None**:  No frame correction is applied.
+
+
+
+
+
+
+
+
+
