@@ -7,6 +7,7 @@ If multiple adapters are needed make copies of WireSharkSerialAdapter.exe (Ex:  
 
 
 The Adapter works by sniffing serial data by using [extcap](https://www.wireshark.org/docs/man-pages/extcap.html) into Wireshark frames by using either User defined DLT(147-162) or RTAC Serial(250).  
+
 RTAC requires less setup within Wireshark as it is included as DLT.  Both require Right clicking on the frame within Wireshark and clicking Decode As and picking the protocol for decoding. 
 
 ## RTAC Serial(250)
