@@ -6,9 +6,9 @@ Copy WireSharkSerialApapter.exe to the \Wireshark\extcap directory
 If multiple adapters are needed make copies of WireSharkSerialAdapter.exe (Ex:  WireSharkSerialAdapter01.exe, WireSharkSerialAdapter02.exe....) 
 
 
-The Adapter works by sniffing serial data by using [extcap](https://www.wireshark.org/docs/man-pages/extcap.html) into Wireshark frames by using either User defined DLT(147-162) or RTAC Serial(250).  
+The Adapter works by sniffing serial data by using [extcap](https://www.wireshark.org/docs/man-pages/extcap.html) into Wireshark payloads by using either User defined DLT(147-162) or RTAC Serial(250).  
 
-RTAC requires less setup within Wireshark as it is included as a DLT.  Both DLT methods require selecting the required desector for decoding.  For RTAC this is done by right clicking on the frame within Wireshark and clicking **Decode AS**.  For User defined DLT(147-162) the protocol is selected when configing the DLT.
+RTAC requires less setup within Wireshark as it is included as a DLT.  Both DLT methods require selecting the required desector for decoding.  For RTAC this is done by right clicking on the frame within Wireshark and clicking **Decode AS**.  For User defined DLT(147-162) the protocol is selected when configing the DLT under **payload protocol**.
 
 ## RTAC Serial(250)
 ![alt text](https://github.com/jzhvymetal/WiresharkSerialAdapter/blob/main/02_Wireshark%20Serial%20Adapter-Using%20RTAC%20Serial%20DLT.png)
