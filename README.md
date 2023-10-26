@@ -46,8 +46,25 @@ Any serial adapter will work.  Any caching or latency timing need to be kept to 
 - **Modbus CRC**:  This is used in conjuction with detecting the end of frames.  This will check the frame for the correct Modbus CRC.  If the frame has the correct CRC it will present the frame to Wireshark.   If the CRC is not correct it will analyze the frame until the point that a correct CRC frame is detected.  This help if the Interframe Timing Detection is not precise to detect the Interframe period.
 - **None**:  No frame correction is applied.
 
-
-
+## How to Compile
+1.  Install Visual Studio Code.
+ <br />&emsp; https://code.visualstudio.com/download
+2.  Install the C/C++ extension for VS Code. 
+<br />&emsp; Extensions view (Ctrl+Shift+X). You can install the C/C++ extension by searching for 'C++'
+3.  Installing the MinGW-w64 toolchain
+<br />&emsp; https://www.msys2.org
+4.  In this terminal, install the MinGW-w64 toolchain by running the following command:
+<br />&emsp; pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+5.  Add the path to your MinGW-w64 bin folder to the Windows PATH environment variable by using the following steps:
+<br />&emsp; Open cmd as admin type setx path "%path%;C:\msys64\ucrt64\bin"
+6.  Check your MinGW installation
+<br />&emsp;Close existing cmd and open new type following:
+<br />&emsp;&emsp; gcc --version
+<br />&emsp;&emsp; g++ --version
+<br />&emsp;&emsp; gdb --version
+8.   Compile WireSharkSerialAdapter.cpp
+<br />&emsp; 1. CTRL+F5
+<br />&emsp; 2. select g++
 
 
 
