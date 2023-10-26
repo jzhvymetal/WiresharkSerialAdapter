@@ -47,6 +47,10 @@ Any serial adapter will work.  Any caching or latency timing need to be kept to 
 - **None**:  No frame correction is applied.
 
 ## How to Compile
+https://code.visualstudio.com/docs/cpp/config-mingw
+
+
+Simplified from link above:
 1.  Install Visual Studio Code.
  <br />&emsp; https://code.visualstudio.com/download
 2.  Install the C/C++ extension for VS Code. 
