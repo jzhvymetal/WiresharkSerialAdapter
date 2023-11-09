@@ -732,7 +732,20 @@ void print_extcap_config_comport()
 void print_extcap_config_baud()
 {
     std::string  argString="";
-    argString+="arg {number=1}{call=--baud}{display=Baud Rate}{type=editselector}\n";
+    argString+="arg {number=1}{call=--baud}{display=Baud Rate}{type=selector}\n";
+    argString+="value {arg=1}{value=1200}{display=1200}{default=false}\n";
+    argString+="value {arg=1}{value=2400}{display=2400}{default=false}\n";
+    argString+="value {arg=1}{value=4800}{display=4800}{default=false}\n";
+    argString+="value {arg=1}{value=9600}{display=9600}{default=false}\n";
+    argString+="value {arg=1}{value=14400}{display=14400}{default=false}\n";
+    argString+="value {arg=1}{value=19200}{display=19200}{default=true}\n";
+    argString+="value {arg=1}{value=38400}{display=38400}{default=false}\n";
+    argString+="value {arg=1}{value=56000}{display=56000}{default=false}\n";
+    argString+="value {arg=1}{value=57600}{display=57600}{default=false}\n";
+    argString+="value {arg=1}{value=76800}{display=76800}{default=false}\n";
+    argString+="value {arg=1}{value=115200}{display=115200}{default=false}\n";
+    argString+="value {arg=1}{value=128000}{display=128000}{default=false}\n";
+    argString+="value {arg=1}{value=256000}{display=256000}{default=false}\n";
     printf("%s", argString.c_str());
 }
 
@@ -845,7 +858,7 @@ static void print_help(std::string  filename) {
     argString+="--extcap-interfaces Provide a list of interfaces to capture from.\n";
     argString+="--extcap-interface Provide the interface to capture from.\n";
     argString+="--extcap-dlts Provide a list of dlts for the given interface.\n";
-    argString+="-extcap-config Provide a list of configurations for the given interface.\n";
+    argString+="--extcap-config Provide a list of configurations for the given interface.\n";
  //   argString+="--extcap-capture-filter Used together with capture to provide a capture filter.\n"
     argString+="--fifo Use together with capture to provide the fifo to dump data to.\n";
     argString+="--extcap-control-in Used to get control messages from toolbar.\n";
