@@ -1,14 +1,13 @@
 # WiresharkSerialAdapter
-Wireshark Serial Adapter for Windows.  This addon is is to use wireshark with a serial adapter to sniff serial data.
+Wireshark Serial Adapter for Windows. This add-on allows you to use Wireshark with a serial adapter to sniff serial data.
 
-Copy WireSharkSerialApapter.exe to the \Wireshark\extcap directory
+Copy `WireSharkSerialAdapter.exe` to the `\Wireshark\extcap` directory.
 
-If multiple adapters are needed make copies of WireSharkSerialAdapter.exe (Ex:  WireSharkSerialAdapter01.exe, WireSharkSerialAdapter02.exe....) 
+If multiple adapters are needed, make copies of `WireSharkSerialAdapter.exe` (e.g., `WireSharkSerialAdapter01.exe`, `WireSharkSerialAdapter02.exe`, etc.).
 
+The adapter works by sniffing serial data using extcap, delivering it to Wireshark payloads via either user-defined DLT (147–162) or RTAC Serial (250).
 
-The Adapter works by sniffing serial data by using [extcap](https://www.wireshark.org/docs/man-pages/extcap.html) into Wireshark payloads by using either User defined DLT(147-162) or RTAC Serial(250).  
-
-RTAC requires less setup within Wireshark as it is included as a DLT.  Both DLT methods require selecting the required desector for decoding.  For RTAC this is done by right clicking on the frame within Wireshark and clicking **Decode AS**.  For User defined DLT(147-162) the protocol is selected when configing the DLT under **payload protocol**.
+RTAC requires less setup within Wireshark since it is included as a DLT. Both DLT methods require selecting the appropriate dissector for decoding. For RTAC, this is done by right-clicking a frame in Wireshark and selecting **Decode As**. For user-defined DLT (147–162), the protocol is selected when configuring the DLT under **payload protocol**.
 
 ## RTAC Serial(250)
 ![alt text](https://github.com/jzhvymetal/WiresharkSerialAdapter/blob/main/02_Wireshark%20Serial%20Adapter-Using%20RTAC%20Serial%20DLT.png)
@@ -27,50 +26,90 @@ Any serial adapter will work.  Any caching or latency timing need to be kept to 
 
 ![alt text](https://github.com/jzhvymetal/WiresharkSerialAdapter/blob/main/99_Wireshark%20Serial%20Adapter-Software%20Settings.png)
 
-<ins>Interframe Timing Detection</ins>
-- **Event:** Use the serial adapters event to detect when data has been received.
-- **Polling**:  Uses timer based polling to detect when data has been received.
+---
 
-<ins>Interframe Timebase</ins>
-- **Multipler**: 1x Modbus Character:  Uses the Modbus time based on specification multipled by the Interframe Multipler setting for detection of end of frame.
-- **Multipler**: 1x Character:  Uses time per serial character(calulated by baud rate, Byte, Parity, Stop bits) multipled by the Interframe Multipler setting for detection of end of frame.
-- **Delay Only**:  Uses on the delay specified in the Interframe Delay(us) for detection of end of frame.
+<ins>**Interframe Timing Detection**</ins>
 
-<ins>Interframe Multipler</ins>
-- Used as time multipler when selecting one of the Interframe Timebase using multipler.
+* **Event**: Uses the serial adapter's event mechanism to detect when data has been received.
+* **Polling**: Uses timer-based polling to detect when data has been received.
 
-<ins>Interframe Delay(us)</ins>
-- Use as delay on detection of end of frame.  This time is added to any additional time to detect the end of frame on all Timebase selected.
+---
 
-<ins>Interframe Correction</ins>
-- **Modbus CRC**:  This is used in conjuction with detecting the end of frames.  This will check the frame for the correct Modbus CRC.  If the frame has the correct CRC it will present the frame to Wireshark.   If the CRC is not correct it will analyze the frame until the point that a correct CRC frame is detected.  This help if the Interframe Timing Detection is not precise to detect the Interframe period.
-- **None**:  No frame correction is applied.
+<ins>**Interframe Timebase**</ins>
 
-## How to Compile
-https://code.visualstudio.com/docs/cpp/config-mingw
+* **Multiplier: 1x Modbus Character**: Uses the Modbus timing specification, multiplied by the *Interframe Multiplier* setting, to detect the end of a frame.
+* **Multiplier: 1x Character**: Uses the time per serial character (calculated based on baud rate, data bits, parity, and stop bits), multiplied by the *Interframe Multiplier* setting, to detect the end of a frame.
+* **Delay Only**: Uses only the delay specified in *Interframe Delay (µs)* to detect the end of a frame.
 
+---
 
-Simplified from link above:
-1.  Install Visual Studio Code.
- <br />&emsp; https://code.visualstudio.com/download
-2.  Install the C/C++ extension for VS Code. 
-<br />&emsp; Extensions view (Ctrl+Shift+X). You can install the C/C++ extension by searching for 'C++'
-3.  Installing the MinGW-w64 toolchain
-<br />&emsp; https://www.msys2.org
-4.  In this terminal, install the MinGW-w64 toolchain by running the following command:
-<br />&emsp; pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
-5.  Add the path to your MinGW-w64 bin folder to the Windows PATH environment variable by using the following steps:
-<br />&emsp; Open cmd as admin type setx path "%path%;C:\msys64\ucrt64\bin"
-6.  Check your MinGW installation
-<br />&emsp;Close existing cmd and open new type following:
-<br />&emsp;&emsp; gcc --version
-<br />&emsp;&emsp; g++ --version
-<br />&emsp;&emsp; gdb --version
-8.   Compile WireSharkSerialAdapter.cpp
-<br />&emsp; 1. CTRL+F5
-<br />&emsp; 2. select g++
+<ins>**Interframe Multiplier**</ins>
+
+* Used as a time multiplier when selecting an *Interframe Timebase* mode that relies on a multiplier.
+
+---
+
+<ins>**Interframe Delay (µs)**</ins>
+
+* Used as an additional delay when detecting the end of a frame. This delay is added to any other timing used by the selected *Interframe Timebase* mode.
+
+---
+
+<ins>**Interframe Correction**</ins>
+
+* **Modbus CRC**: Used in conjunction with end-of-frame detection. This checks each frame for a valid Modbus CRC. If the CRC is valid, the frame is presented to Wireshark. If not, the data is further analyzed to find the point where a valid CRC frame begins. This helps compensate for imprecise interframe timing.
+* **None**: No frame correction is applied.
+
+---
 
 
+### **Compiling Instructions--Based on: [Visual Studio Code – C++ with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw)**
+
+1. **Install Visual Studio Code**
+
+   Download from:
+   [https://code.visualstudio.com/download](https://code.visualstudio.com/download)
+
+2. **Install the C/C++ extension for VS Code**
+
+   Open the Extensions view (`Ctrl+Shift+X`), then search for **C++** and install the extension by Microsoft.
+
+3. **Install MSYS2 and the MinGW-w64 toolchain**
+
+   Download and install from:
+   [https://www.msys2.org](https://www.msys2.org)
+
+4. **Install the required MinGW packages**
+
+   Open the **MSYS2 UCRT64 terminal**, then run:
+
+   ```bash
+   pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+   ```
+
+5. **Add MinGW to your system PATH**
+
+   Open Command Prompt as Administrator and run:
+
+   ```cmd
+   setx path "%path%;C:\msys64\ucrt64\bin"
+   ```
+
+6. **Verify your MinGW installation**
+
+   Close and reopen the Command Prompt, then run:
+
+   ```bash
+   gcc --version  
+   g++ --version  
+   gdb --version
+   ```
+
+7. **Compile `WireSharkSerialAdapter.cpp` in VS Code**
+
+        1. Open the project folder in VS Code
+        2. Press `Ctrl+F5` to build and run
+        3. When prompted, select **g++** as the compiler
 
 
 
